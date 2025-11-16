@@ -1,126 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Happy Birthday 🎉</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Happy Birthday Harshit 🎉</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-    body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        text-align: center;
-        overflow-x: hidden;
-        color: white;
-    }
+  :root{
+    --bg1:#0b1020; --bg2:#2b1b3a; --accent:#ff6b8a; --accent2:#ffd166; --white:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(135deg,var(--bg1),#0f1830);color:var(--white);-webkit-font-smoothing:antialiased}
+  .center{
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;
+  }
 
-    h1 {
-        font-size: 3rem;
-        margin-top: 30px;
-        animation: glow 2s infinite;
-    }
+  .card{
+    width:100%; max-width:980px; border-radius:18px; overflow:hidden; position:relative;
+    box-shadow: 0 30px 80px rgba(2,6,23,0.7); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+  }
 
-    @keyframes glow {
-        0% { text-shadow: 0 0 10px white; }
-        50% { text-shadow: 0 0 20px #ffefba; }
-        100% { text-shadow: 0 0 10px white; }
-    }
+  /* Left area text */
+  .hero{
+    display:flex; gap:20px; align-items:center; padding:28px;
+    flex-wrap:wrap;
+  }
+  .left{
+    flex:1; min-width:260px; color:var(--white);
+  }
+  .title{
+    font-size:clamp(26px,4vw,44px); font-weight:700; margin:0;
+    text-shadow: 0 10px 30px rgba(124,92,255,0.12);
+    background: linear-gradient(90deg,#fff, #ffd);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub{ margin-top:8px; font-size:16px; opacity:0.95 }
+  .typed{ margin-top:14px; font-size:18px; line-height:1.4; opacity:0.95 }
 
-    .msg {
-        font-size: 1.3rem;
-        width: 90%;
-        margin: auto;
-        margin-top: 20px;
-        animation: fadeIn 3s;
-    }
+  .controls{ margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; align-items:center }
+  .btn{ padding:12px 16px; border-radius:12px; border:0; cursor:pointer; font-weight:700 }
+  .btn-primary{ background:linear-gradient(90deg,var(--accent),#ff8ab6); color:#0b0810; box-shadow:0 10px 30px rgba(124,92,255,0.12) }
+  .btn-ghost{ background:transparent; color:rgba(255,255,255,0.9); border:1px solid rgba(255,255,255,0.06) }
 
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
+  /* Right slideshow */
+  .right{ width:420px; max-width:44%; min-width:240px; position:relative; }
+  .slideshow{ position:relative; width:100%; height:340px; border-radius:14px; overflow:hidden; background:#000; display:flex; align-items:center; justify-content:center }
+  .slide{ position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transform:scale(1.04); transition:opacity 1s ease, transform 8s ease; }
+  .slide.show{ opacity:1; transform:scale(1); }
 
-    /* Slideshow */
-    .slideshow {
-        width: 90%;
-        max-width: 350px;
-        margin: 30px auto;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 0 20px rgba(255,255,255,0.5);
-    }
+  /* overlay text on image */
+  .img-caption{ position:absolute; left:18px; bottom:18px; background:linear-gradient(90deg, rgba(0,0,0,0.25), rgba(0,0,0,0.05)); padding:8px 12px; border-radius:10px; font-weight:600 }
 
-    .slideshow img {
-        width: 100%;
-        display: none;
-    }
+  /* confetti canvas */
+  canvas{ position:fixed; inset:0; pointer-events:none; z-index:6 }
 
-    .slideshow img.active {
-        display: block;
-    }
+  /* typed cursor */
+  .cursor{ display:inline-block; width:3px; height:1em; background:var(--accent); margin-left:6px; vertical-align:middle; animation:blink 0.9s steps(2, start) infinite; }
+  @keyframes blink { to { visibility:hidden } }
 
-    /* Floating hearts */
-    .heart {
-        position: fixed;
-        bottom: -10px;
-        right: 50%;
-        color: #ffdde1;
-        font-size: 25px;
-        animation: floatUp 5s linear infinite;
-    }
-
-    @keyframes floatUp {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(-800px); opacity: 0; }
-    }
+  /* responsive */
+  @media(max-width:860px){
+    .hero{ flex-direction:column-reverse; padding:18px }
+    .right{ width:100%; max-width:600px }
+    .slideshow{ height:260px }
+  }
 </style>
 </head>
-
 <body>
 
-<h1>🎉 Happy Birthday Bhai! 🎂</h1>
+<canvas id="confettiCanvas"></canvas>
 
-<p class="msg">
-    Tum duniya ke sabse ache insaan ho ❤️  
-    Aaj ka din special hai, aur ye chhota sa gift tumhare liye 🎁  
-    Khush raho, hamesha haste raho! 💫
-</p>
+<div class="center">
+  <div class="card">
+    <div class="hero">
+      <div class="left">
+        <h1 class="title">Happy Birthday, <span style="color:var(--accent2)">Harshit Shukla</span> 🎉</h1>
+        <div class="sub">Aaj ka din special hai — yeh chhota sa surprise tumhare liye. Tap "Play Surprise" aur maze lo! ✨</div>
 
-<!-- Slideshow -->
-<div class="slideshow">
-    <img src="https://i.imgur.com/1XKxZ7T.jpeg" class="active">
-    <img src="https://i.imgur.com/uZcH5l5.jpeg">
-    <img src="https://i.imgur.com/ZkQbP5q.jpeg">
-</div>
-
-<!-- Music -->
-<audio autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_b1e1e0f164.mp3">
-</audio>
-
-<script>
-    // Slideshow Script
-    let index = 0;
-    const slides = document.querySelectorAll(".slideshow img");
-
-    setInterval(() => {
-        slides[index].classList.remove("active");
-        index = (index + 1) % slides.length;
-        slides[index].classList.add("active");
-    }, 2500);
-
-    // Floating hearts
-    setInterval(() => {
-        let heart = document.createElement('div');
-        heart.className = 'heart';
-        heart.innerHTML = '❤️';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.fontSize = (20 + Math.random()*20) + 'px';
-        document.body.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 5000);
-    }, 400);
-</script>
-
-</body>
-</html>
+        <div class="typed" id="typedText"></div>
+        <div class="controls">
+          <button id="playBtn" class="btn btn-primary">▶️ Play Surprise</button>
+          <button id="muteBtn" class
