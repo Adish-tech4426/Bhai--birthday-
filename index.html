@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 🎉</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        text-align: center;
+        overflow-x: hidden;
+        color: white;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-top: 30px;
+        animation: glow 2s infinite;
+    }
+
+    @keyframes glow {
+        0% { text-shadow: 0 0 10px white; }
+        50% { text-shadow: 0 0 20px #ffefba; }
+        100% { text-shadow: 0 0 10px white; }
+    }
+
+    .msg {
+        font-size: 1.3rem;
+        width: 90%;
+        margin: auto;
+        margin-top: 20px;
+        animation: fadeIn 3s;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Slideshow */
+    .slideshow {
+        width: 90%;
+        max-width: 350px;
+        margin: 30px auto;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+
+    .slideshow img {
+        width: 100%;
+        display: none;
+    }
+
+    .slideshow img.active {
+        display: block;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: fixed;
+        bottom: -10px;
+        right: 50%;
+        color: #ffdde1;
+        font-size: 25px;
+        animation: floatUp 5s linear infinite;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(-800px); opacity: 0; }
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎉 Happy Birthday Bhai! 🎂</h1>
+
+<p class="msg">
+    Tum duniya ke sabse ache insaan ho ❤️  
+    Aaj ka din special hai, aur ye chhota sa gift tumhare liye 🎁  
+    Khush raho, hamesha haste raho! 💫
+</p>
+
+<!-- Slideshow -->
+<div class="slideshow">
+    <img src="https://i.imgur.com/1XKxZ7T.jpeg" class="active">
+    <img src="https://i.imgur.com/uZcH5l5.jpeg">
+    <img src="https://i.imgur.com/ZkQbP5q.jpeg">
+</div>
+
+<!-- Music -->
+<audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_b1e1e0f164.mp3">
+</audio>
+
+<script>
+    // Slideshow Script
+    let index = 0;
+    const slides = document.querySelectorAll(".slideshow img");
+
+    setInterval(() => {
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+    }, 2500);
+
+    // Floating hearts
+    setInterval(() => {
+        let heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = (20 + Math.random()*20) + 'px';
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+    }, 400);
+</script>
+
+</body>
+</html>
